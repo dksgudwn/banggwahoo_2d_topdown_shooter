@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     public WeaponDataSO weaponData => _weaponData;//나중에 가져다 쓸 수 있게 겟터 만들어 둔다
 
     public UnityEvent OnShoot;
-    public UnityEvent OnShootNoAmmon;
+    public UnityEvent OnShootNoAmmo;
     public UnityEvent OnStopShooting;
     protected bool _isShooting; // 현재 발사중인가?
     protected bool _delayCoroutine = false;
@@ -59,7 +59,7 @@ public class Weapon : MonoBehaviour
             else
             {
                 _isShooting = false;
-                OnShootNoAmmon?.Invoke();
+                OnShootNoAmmo?.Invoke();
                 return;
             }
             FinishOneShooting();//한발 쏘고 난 다음에는 딜레이 코루틴을 돌려줘야하니까 작업을 여기서

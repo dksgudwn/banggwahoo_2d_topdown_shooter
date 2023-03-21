@@ -6,15 +6,12 @@ public class RegularBullet : PoolableMono
 {
     public bool IsEnemy; //적의 총알인가?
 
-    public int DamageFactor = 1; //총알 데미지 계수
-
     [SerializeField]
-    private float _TTL;//설정값
+    private BulletDataSO _bulletData;
     private float _timeToLive; //몇초동안 살아남을것인가?
     [SerializeField]
-    private float _bulletSpeed;
     private Rigidbody2D _rigid;
-    private bool isDead;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -23,13 +20,42 @@ public class RegularBullet : PoolableMono
     private void FixedUpdate()
     {
         _timeToLive += Time.fixedDeltaTime;
-        _rigid.MovePosition(transform.position + transform.right * _bulletSpeed * Time.fixedDeltaTime);
+        _rigid.MovePosition(transform.position + transform.right * _bulletData.bulletSpeed * Time.fixedDeltaTime);
 
-        if(_timeToLive >= _TTL )
+        if (_timeToLive >= _bulletData.lifeTime)
         {
             isDead = true;
             PoolManager.Instance.Push(this);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isDead) return;
+        //내가 맞은게 아군인지 적인지 체크
+        //현재 내가 맞은게 장애물인지 적인지 체크
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+        {
+            HitObstacle(collision);
+        }
+        isDead = true;
+        PoolManager.Instance.Push(this);
+    }
+    private void HitObstacle(Collider2D collision)
+    {
+        ImpactScript impact = PoolManager.Instance.Pop(_bulletData.impactObstaclePrefab.name) as ImpactScript;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f);
+
+        if(hit.collider != null)
+        {
+            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360f)));
+            impact.SetPositionAndRotation(hit.point+(Vector2)transform.right * 0.5f, rot);
+        }
+    }
+    private void HitEnemy(Collider2D collision)
+    {
+
     }
     public void SetPositionAndRotation(Vector3 pos, Quaternion rot)
     {

@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 3ff1c6ad51e030d41a3aca61d76bde17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,6 +158,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsEnemy: 0
-  DamageFactor: 1
-  _TTL: 1.5
-  _bulletSpeed: 20
+  _bulletData: {fileID: 11400000, guid: b940afd99320c9b428fd37b52d8db8ef, type: 2}
+  _rigid: {fileID: 0}
