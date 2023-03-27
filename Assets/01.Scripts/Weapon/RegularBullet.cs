@@ -38,6 +38,10 @@ public class RegularBullet : PoolableMono
         {
             HitObstacle(collision);
         }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            HitEnemy(collision);
+        }
         isDead = true;
         PoolManager.Instance.Push(this);
     }
@@ -47,15 +51,22 @@ public class RegularBullet : PoolableMono
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f);
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
             Quaternion rot = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360f)));
-            impact.SetPositionAndRotation(hit.point+(Vector2)transform.right * 0.5f, rot);
+            impact.SetPositionAndRotation(hit.point + (Vector2)transform.right * 0.5f, rot);
         }
     }
     private void HitEnemy(Collider2D collision)
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f, 1 << LayerMask.NameToLayer("Enemy"));
 
+        if (hit.collider != null)
+        {
+            IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
+            Quaternion rot = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360f)));
+            damageable?.GetHit(_bulletData.damage, gameObject, hit.point, hit.normal);
+        }
     }
     public void SetPositionAndRotation(Vector3 pos, Quaternion rot)
     {
