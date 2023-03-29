@@ -15,7 +15,7 @@ public class WeaponRenderer : MonoBehaviour
     public void FlipSprite(bool value)
     {
         Vector3 localScale = new Vector3(1, 1, 1);
-        if (value)
+        if(value)
         {
             localScale.y = -1;
         }

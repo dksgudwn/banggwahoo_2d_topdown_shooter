@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class FeedbackSolid : Feedback
 {
+
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
     [SerializeField]
@@ -18,7 +19,7 @@ public class FeedbackSolid : Feedback
 
     public override void CreateFeedback()
     {
-        if (_spriteRenderer.material.HasProperty("_IsSolidColor"))
+        if(_spriteRenderer.material.HasProperty("_IsSolidColor") )
         {
             _spriteRenderer.material.SetInt("_IsSolidColor", 1);
             StartCoroutine(WaitBeforeChagingBack());

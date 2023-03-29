@@ -9,7 +9,7 @@ public class MuzzleLightFeedback : Feedback
     [SerializeField] private Light2D _lightTarget = null; //작업하고자 하는 라이트
     [SerializeField] private float _lightOnDelay = 0.01f, _lightOffDelay = 0.01f; //키고 꺼짐의 딜레이
     [SerializeField] private bool _defaultState = false; //기본 상태
-
+    
     //모든 피드백을 종료해야할 때
     public override void CompleteFeedback()
     {
@@ -21,7 +21,7 @@ public class MuzzleLightFeedback : Feedback
     {
         StartCoroutine(ToggleLightCoroutine(_lightOnDelay, true, () =>
         {
-            StartCoroutine(ToggleLightCoroutine(_lightOffDelay, false));
+            StartCoroutine(ToggleLightCoroutine(_lightOffDelay, false)); 
         }));
     }
 

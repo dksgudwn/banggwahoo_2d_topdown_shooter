@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class WeaponAudio : AudioPlayer
 {
-    public AudioClip shootBulletClip = null, outOffBulletClip = null, reloadClup = null;
+    public AudioClip shootBulletClip = null, outOfBulletClip = null, reloadClip = null;
+
     public void PlayShootSound()
     {
         PlayClip(shootBulletClip);
     }
-    public void PlayOutOffBulletSound()
+
+    public void PlayOutOfBulletSound()
     {
-        PlayClip(outOffBulletClip);
+        PlayClip(outOfBulletClip);
     }
+
     public void PlayReloadSound()
     {
-        PlayClip(reloadClup);
+        PlayClip(reloadClip);
     }
 }

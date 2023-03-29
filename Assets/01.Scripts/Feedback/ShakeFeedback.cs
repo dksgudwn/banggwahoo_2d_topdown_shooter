@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShakeFeedback : Feedback
 {
     [SerializeField]
-    private Transform _objectToShake;//흔들 물체
+    private Transform _objectToShake; //흔들 물체
     [SerializeField]
     private float _duration = 0.2f, _strength = 1f, _randomness = 90f;
     [SerializeField]
@@ -19,6 +19,7 @@ public class ShakeFeedback : Feedback
     {
         _objectToShake.DOComplete(); //기존에 transform에서 진행중이던 트윈을 모두 종료한다.
     }
+
     public override void CreateFeedback()
     {
         CompleteFeedback();

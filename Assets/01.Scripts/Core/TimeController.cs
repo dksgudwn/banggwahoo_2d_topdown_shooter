@@ -7,10 +7,14 @@ public class TimeController : MonoBehaviour
 {
     public static TimeController Instance;
 
+    private void OnDestroy()
+    {
+        ResetTimeScale();
+    }
     public void ResetTimeScale()
     {
         StopAllCoroutines();
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1f;
     }
 
     public void ModifyTimeScale(float endTimeValue, float timeToWait, Action OnComplete = null)
@@ -18,10 +22,10 @@ public class TimeController : MonoBehaviour
         StartCoroutine(TimeScaleCoroutine(endTimeValue, timeToWait, OnComplete));
     }
 
-    IEnumerator TimeScaleCoroutine(float endTimeValue, float timeToWait, Action onComplete)
+    IEnumerator TimeScaleCoroutine(float endTimeValue, float timeToWait, Action OnComplete)
     {
         yield return new WaitForSecondsRealtime(timeToWait);
         Time.timeScale = endTimeValue;
-        onComplete?.Invoke();
+        OnComplete?.Invoke();
     }
 }

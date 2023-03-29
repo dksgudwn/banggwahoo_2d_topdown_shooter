@@ -6,12 +6,17 @@ public class AITransition : MonoBehaviour
 {
     public List<AIDecision> decisions;
 
-    public AIState TransitionState;
+    public AIState TransitionState; //전이할 상태
 
-    public void SetUp(Transform parentTrm)
+    private void Awake()
     {
-        decisions.ForEach(d => d.Setup(parentTrm));
+        GetComponents<AIDecision>(decisions);
     }
+    public void Setup(Transform parentTrm)
+    {
+        decisions.ForEach(d => d.SetUp(parentTrm));
+    }
+
     public bool CanTransition()
     {
         bool result = false;
@@ -21,10 +26,10 @@ public class AITransition : MonoBehaviour
             if (d.IsReverse)
                 result = !result;
 
-            if (result == false) break;
-
-
+            if (result == false)
+                break;
         }
+
         return result;
     }
 }

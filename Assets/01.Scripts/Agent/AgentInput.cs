@@ -25,17 +25,16 @@ public class AgentInput : MonoBehaviour, IAgentInput
 
     private void GetFireInput()
     {
-        if (Input.GetAxisRaw("Fire1") > 0)
+        if(Input.GetAxisRaw("Fire1") > 0)
         {
-            if (_fireButtonDown == false) //처음으로 버튼이 눌린거면 눌렸음을 통지
+            if(_fireButtonDown == false) //처음으로 버튼이 눌린거면 눌렸음을 통지
             {
                 _fireButtonDown = true;
                 OnFireButtonPress?.Invoke();
             }
-        }
-        else
+        }else
         {
-            if (_fireButtonDown == true)  //버튼을 땠는데 기존에 눌려있던거라면
+            if(_fireButtonDown == true)  //버튼을 땠는데 기존에 눌려있던거라면
             {
                 _fireButtonDown = false;
                 OnFireButtonRelease?.Invoke(); //버튼이 떼졌음을 통지

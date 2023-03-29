@@ -23,5 +23,5 @@ public class FeedbackPlayer : MonoBehaviour
             f.CompleteFeedback();
         }
     }
-
+    
 }

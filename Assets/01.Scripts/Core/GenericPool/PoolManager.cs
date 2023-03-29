@@ -6,7 +6,7 @@ public class PoolManager
 {
     public static PoolManager Instance;
 
-    private Dictionary<string, Pool<PoolableMono>> _pools
+    private Dictionary<string, Pool<PoolableMono>> _pools 
         = new Dictionary<string, Pool<PoolableMono>>();
 
     private Transform _trmParent;
@@ -23,7 +23,7 @@ public class PoolManager
 
     public PoolableMono Pop(string prefabName)
     {
-        if (_pools.ContainsKey(prefabName) == false)
+        if(_pools.ContainsKey(prefabName) == false)
         {
             Debug.LogError($"Prefab doesn't exist on pool list : {prefabName}");
             return null;
