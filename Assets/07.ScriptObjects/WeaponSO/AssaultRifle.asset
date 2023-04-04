@@ -17,3 +17,5 @@ MonoBehaviour:
   weaponDelay: 0.1
   spreadAngle: 5
   bulletCount: 1
+  reloadTime: 1
+  reloadClip: {fileID: 8300000, guid: 1adb6ab7f57563a4a952d8d20f2e415c, type: 3}
