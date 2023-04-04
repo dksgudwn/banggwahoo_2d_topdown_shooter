@@ -9,6 +9,5 @@ public class ChaseAction : AIAction
         Vector2 dir = _enemyBrain.Target.position - _enemyBrain.BasePosition.position;
 
         _enemyBrain.Move(dir.normalized, _enemyBrain.Target.position);
-
     }
 }

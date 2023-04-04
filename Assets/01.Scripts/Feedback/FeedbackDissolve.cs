@@ -12,12 +12,12 @@ public class FeedbackDissolve : Feedback
     private float _duration = 0.1f;
 
     public UnityEvent FeedbackComplete;
+
     public override void CompleteFeedback()
     {
         _spriteRenderer.material.SetInt("_IsDissolve", 0);
         _spriteRenderer.material.DOComplete();
         _spriteRenderer.material.SetFloat("_Dissolve", 1);
-
     }
 
     public override void CreateFeedback()

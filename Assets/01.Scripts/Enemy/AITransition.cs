@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AITransition : MonoBehaviour
@@ -10,8 +11,9 @@ public class AITransition : MonoBehaviour
 
     private void Awake()
     {
-        GetComponents<AIDecision>(decisions);
+        GetComponents<AIDecision>(decisions); //모든 디시전을 가져와서 리스트를 만든다.
     }
+
     public void Setup(Transform parentTrm)
     {
         decisions.ForEach(d => d.SetUp(parentTrm));

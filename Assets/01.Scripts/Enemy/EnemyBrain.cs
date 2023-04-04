@@ -31,11 +31,10 @@ public class EnemyBrain : MonoBehaviour
 
     public void Update()
     {
-        if (Target == null)
+        if(Target == null)
         {
             OnMovementKeyPress?.Invoke(Vector2.zero);
-        }
-        else
+        }else
         {
             CurrentState.UpdateState(); //현재 상태를 갱신한다.
         }

@@ -16,8 +16,9 @@ public class AgentWeapon : MonoBehaviour
     private ReloadGaugeUI _reloadUI = null;
     [SerializeField]
     private AudioClip _cannotSound = null;
+
     [SerializeField]
-    private int _maxTotalAmmo = 9999, _totalAmmo = 300;//최대9999발, 최초300발가지고시작
+    private int _maxTotalAmmo = 9999, _totalAmmo = 300; //최대 9999발, 최초 300발 가지고 시작
 
     private AudioSource _audioSource;
     private bool _isReloading = false;
@@ -30,33 +31,34 @@ public class AgentWeapon : MonoBehaviour
 
         _audioSource = GetComponent<AudioSource>();
     }
+
     #region 리로딩 관련 로직
     public void Reload()
     {
-        if (_isReloading == false && _totalAmmo > 0 && _weapon.AmmoFull == false)
+        if(_isReloading == false && _totalAmmo > 0 && _weapon.AmmoFull == false)
         {
             _isReloading = true;
-            _weapon.StopShooting();//사격중지
+            _weapon.StopShooting(); //사격중지
             StartCoroutine(ReloadCoroutine());
-        }
-        else
+        }else
         {
             PlayClip(_cannotSound);
-        }
+        }   
     }
+
     IEnumerator ReloadCoroutine()
     {
-        _reloadUI.gameObject.SetActive(true);
+        _reloadUI.gameObject.SetActive(true); //리로드 UI 나오게 해주고
         float time = 0;
-        while (time <= _weapon.WeaponData.reloadTime)
+        while(time <= _weapon.WeaponData.reloadTime)
         {
             _reloadUI.ReloadGaugeNormal(time / _weapon.WeaponData.reloadTime);
             time += Time.deltaTime;
             yield return null;
         }
 
-        _reloadUI.gameObject.SetActive(false);
-        if (_weapon.WeaponData.reloadClip != null)
+        _reloadUI.gameObject.SetActive(false); //리로드 게이지 꺼주고
+        if(_weapon.WeaponData.reloadClip != null)
             PlayClip(_weapon.WeaponData.reloadClip);
 
         int reloadedAmmo = Mathf.Min(_totalAmmo, _weapon.EmptyBulletCnt);
@@ -64,6 +66,7 @@ public class AgentWeapon : MonoBehaviour
         _weapon.Ammo += reloadedAmmo;
 
         _isReloading = false;
+
     }
 
     private void PlayClip(AudioClip clip)
@@ -74,10 +77,12 @@ public class AgentWeapon : MonoBehaviour
     }
     #endregion
 
+
+
     public virtual void AimWeapon(Vector2 pointerPos)
     {
         Vector3 aimDirection = (Vector3)pointerPos - transform.position; //마우스 방향 벡터를 구하고
-
+        
         _desireAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         //디그리 각도를 구한다.
 
@@ -89,17 +94,17 @@ public class AgentWeapon : MonoBehaviour
 
     private void AdjustWeaponRendering()
     {
-        if (_weaponRenderer != null)
+        if(_weaponRenderer != null)
         {
             _weaponRenderer.FlipSprite(_desireAngle > 90f || _desireAngle < -90f);
-            _weaponRenderer.RenderBehindHead(_desireAngle > 0 && _desireAngle < 180);
+            _weaponRenderer.RenderBehindHead(  _desireAngle > 0 && _desireAngle < 180 );
         }
     }
 
     public virtual void Shoot()
     {
         //자기가 무기를 들고 있을 경우 발사
-        if (_isReloading) { return; }
+        if (_isReloading) return; //리로딩중에는 발사 금지
         _weapon?.TryShooting();
     }
 

@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
 
     public UnityEvent OnShoot;
     public UnityEvent OnShootNoAmmo;
-    public UnityEvent OnStopShooting;
+    public UnityEvent OnStopShooting; 
     protected bool _isShooting; //현재 발사중인가?
     protected bool _delayCoroutine = false;
 
@@ -47,10 +47,10 @@ public class Weapon : MonoBehaviour
     private void UseWeapon()
     {
         //여기서 만약 총알을 발사하라고 명령이 왔고 딜레이가 없다면 발사를 할꺼야.
-        if (_isShooting && _delayCoroutine == false)
+        if(_isShooting && _delayCoroutine == false )
         {
             //현재 총알의 잔량이 있는지도 체크를 해야하지만 
-            if (Ammo >= _weaponData.bulletCount)
+            if(Ammo >= _weaponData.bulletCount)
             {
                 OnShoot?.Invoke();
                 for (int i = 0; i < _weaponData.bulletCount; i++)
@@ -58,8 +58,7 @@ public class Weapon : MonoBehaviour
                     ShootBullet();
                     Ammo--;
                 }
-            }
-            else
+            }else
             {
                 _isShooting = false;
                 OnShootNoAmmo?.Invoke(); //총알이 없다
@@ -72,7 +71,7 @@ public class Weapon : MonoBehaviour
     private void FinishOneShooting()
     {
         StartCoroutine(DelayNextShootCoroutine());
-        if (_weaponData.autoFire == false)
+        if(_weaponData.autoFire == false)
         {
             _isShooting = false;
         }

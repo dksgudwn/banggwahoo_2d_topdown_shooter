@@ -15,5 +15,5 @@ MonoBehaviour:
   damage: 2
   bulletSpeed: 20
   impactObstaclePrefab: {fileID: 6882460513744357865, guid: bded2bcbe27340f4cb3cdb0686262dfc, type: 3}
-  impactEnemyPrefab: {fileID: 5129245649099905083, guid: 707ea04e253b02d479d4da2b70244eda, type: 3}
+  impactEnemyPrefab: {fileID: 4509607464869198377, guid: 6c1c117bc5ea00b4c813462997d2d79b, type: 3}
   lifeTime: 1.5

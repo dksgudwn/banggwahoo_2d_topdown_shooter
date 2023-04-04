@@ -11,9 +11,10 @@ public class AIState : MonoBehaviour
 
     private void Awake()
     {
-        GetComponentsInChildren<AITransition>(Transitions);
-        GetComponents<AIAction>(Actions);
+        GetComponentsInChildren<AITransition>(Transitions); //내 자식에 있는 전이들 전부 가져와서 실행
+        GetComponents<AIAction>(Actions); //나한테 붙어있는 액션전부 가져와서 실행
     }
+
     public void SetUp(Transform parentTrm)
     {
         _brain = parentTrm.GetComponent<EnemyBrain>();

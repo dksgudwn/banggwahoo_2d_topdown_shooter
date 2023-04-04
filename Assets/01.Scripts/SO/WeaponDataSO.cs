@@ -12,6 +12,7 @@ public class WeaponDataSO : ScriptableObject
     [Range(0, 10f)] public float spreadAngle = 5f; //탄이 퍼지는 각도
 
     public int bulletCount = 1;
+
     public float reloadTime = 1f;
     public AudioClip reloadClip;
 }

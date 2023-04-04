@@ -19,9 +19,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public UnityEvent OnGetHit = null;  //맞았을 때 발생할 이벤트랑
     public UnityEvent OnDie = null;  // 죽었을 때 발생할 이벤트
 
+    private AIActionData _AIActionData;
+
     private void Awake()
     {
-        _currentHealth = _maxHealth; 
+        _currentHealth = _maxHealth;
+        _AIActionData = transform.Find("AI").GetComponent<AIActionData>();
     }
 
     public void GetHit(int damage, GameObject damageDealer, Vector3 hitPoint, Vector3 normal)
@@ -30,10 +33,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         Debug.Log(damage);
         _currentHealth -= damage;
+        
+        _AIActionData.hitPoint = hitPoint;
+        _AIActionData.hitNormal = normal;
 
         OnGetHit?.Invoke();
 
-        if(_currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             DeadProcess();
         }

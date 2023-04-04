@@ -9,8 +9,8 @@ public class AgentMovement : MonoBehaviour
     private Rigidbody2D _rigid;
 
     [SerializeField]
-    private MovementDataSO _movementData;
-
+    private MovementDataSO _movementData; 
+    
     protected float _currentVelocity = 0;
     protected Vector2 _movementDirection;
 
@@ -29,9 +29,9 @@ public class AgentMovement : MonoBehaviour
 
     public void MoveAgent(Vector2 movementInput)
     {
-        if (movementInput.sqrMagnitude > 0)
+        if(movementInput.sqrMagnitude > 0)
         {
-            if (Vector2.Dot(movementInput, _movementDirection) < 0)
+            if(Vector2.Dot(movementInput, _movementDirection) < 0)
             {
                 _currentVelocity = 0;
             }
@@ -42,11 +42,10 @@ public class AgentMovement : MonoBehaviour
 
     private float CalcSpeed(Vector2 movementInput)
     {
-        if (movementInput.sqrMagnitude > 0)
+        if(movementInput.sqrMagnitude > 0)
         {
             _currentVelocity += _movementData._acceleration * Time.deltaTime;
-        }
-        else
+        }else
         {
             _currentVelocity -= _movementData._deAcceleration * Time.deltaTime;
         }
