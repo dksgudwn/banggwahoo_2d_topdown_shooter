@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyBrain : MonoBehaviour
+public class EnemyBrain : PoolableMono
 {
     public Transform Target;
 
@@ -17,6 +17,15 @@ public class EnemyBrain : MonoBehaviour
 
     public AIState CurrentState;
 
+    private EnemyRenderer _enemyRenderer;
+
+    [SerializeField]
+    private bool _isActive = false;
+
+    private void Awake()
+    {
+        _enemyRenderer = transform.Find("VisualSprite").GetComponent<EnemyRenderer>();
+    }
     private void Start()
     {
         Target = GameManager.Instance.PlayerTrm;
@@ -31,18 +40,35 @@ public class EnemyBrain : MonoBehaviour
 
     public void Update()
     {
-        if(Target == null)
+        if (Input.GetButtonDown("Jump"))
+        {
+            ShowEnemy();
+        }
+        if (_isActive == false) return;//업데이트 수행 안함
+        if (Target == null)
         {
             OnMovementKeyPress?.Invoke(Vector2.zero);
-        }else
+        }
+        else
         {
             CurrentState.UpdateState(); //현재 상태를 갱신한다.
         }
+    }
+
+    public void ShowEnemy()
+    {
+        _isActive = false;
+        _enemyRenderer.ShowProgress(2f, () => _isActive = true);
     }
 
     public void Move(Vector2 moveDirection, Vector2 targetPosition)
     {
         OnMovementKeyPress?.Invoke(moveDirection);
         OnPointerPositionChanged?.Invoke(targetPosition);
+    }
+
+    public override void Reset()
+    {
+        _isActive = false;
     }
 }
