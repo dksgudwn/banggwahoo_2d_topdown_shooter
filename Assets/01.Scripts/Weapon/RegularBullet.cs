@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+using static UnityEngine.Rendering.DebugUI;
 
 public class RegularBullet : PoolableMono
 {
@@ -12,6 +14,7 @@ public class RegularBullet : PoolableMono
 
     private Rigidbody2D _rigid;
     private bool isDead = false;
+    private List<ItemScript> _collectList;
 
     private void Awake()
     {
@@ -23,7 +26,7 @@ public class RegularBullet : PoolableMono
         _timeToLive += Time.fixedDeltaTime;
         _rigid.MovePosition(transform.position + transform.right * _bulletData.bulletSpeed * Time.fixedDeltaTime);
 
-        if(_timeToLive >= _bulletData.lifeTime)
+        if (_timeToLive >= _bulletData.lifeTime)
         {
             isDead = true;
             PoolManager.Instance.Push(this);
@@ -36,12 +39,12 @@ public class RegularBullet : PoolableMono
         //내가 맞은게 아군에게 맞은건지 적군에게 맞은건지 체크해줘야 
         //현재 내가 맞은게 장애물인지 적인지는 체크해야해한다는건지
 
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Obstacle") )
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
             HitObstacle(collision);
         }
 
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             HitEnemy(collision);
         }
@@ -53,10 +56,10 @@ public class RegularBullet : PoolableMono
     private void HitObstacle(Collider2D collision)
     {
         ImpactScript impact = PoolManager.Instance.Pop(_bulletData.impactObstaclePrefab.name) as ImpactScript;
-        
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f); //길이 10으로 총알 오른쪽
 
-        if(hit.collider != null)
+        if (hit.collider != null)
         {
             Quaternion rot = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360f)));
             impact.SetPositionAndRotation(hit.point + (Vector2)transform.right * 0.5f, rot); //요것도 약간 어색할거다.
@@ -65,14 +68,17 @@ public class RegularBullet : PoolableMono
 
     private void HitEnemy(Collider2D collision)
     {
-        
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f, 
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 10f,
             1 << LayerMask.NameToLayer("Enemy")); //길이 10으로 총알 오른쪽
 
         if (hit.collider != null)
         {
             IDamageable damageable = hit.collider.gameObject.GetComponent<IDamageable>();
             damageable?.GetHit(_bulletData.damage, gameObject, hit.point, hit.normal);
+
+            PopupText text = PoolManager.Instance.Pop("PopupText") as PopupText;
+            text.SetUp(_bulletData.damage.ToString(), hit.point, Color.white);
 
             ImpactScript impact = PoolManager.Instance.Pop(_bulletData.impactEnemyPrefab.name) as ImpactScript;
             Quaternion rot = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360f)));

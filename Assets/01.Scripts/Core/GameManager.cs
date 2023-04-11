@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             currentTime += Time.deltaTime;
+            //시퀀스를 줘서 한 4~6마리가 스폰포인트 반경 2유닛의 범위에서
+            //순차적으로 나오도록 만드는 거지
             if (currentTime >= 5f)
             {
                 currentTime = 0;

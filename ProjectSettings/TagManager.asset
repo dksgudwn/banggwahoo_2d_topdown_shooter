@@ -16,7 +16,7 @@ TagManager:
   - EnemyMovementCollider
   - PlayerMovementCollider
   - Bullet
-  - 
+  - Item
   - 
   - 
   - 
