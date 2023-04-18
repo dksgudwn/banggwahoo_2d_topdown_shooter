@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d983aac618dd2d40aca57baf5e6e704, type: 3}
-  m_Name: GrowlerDropTable
+  m_Name: CoinTable
   m_EditorClassIdentifier: 
   DropList:
-  - {fileID: 11400000, guid: 787166521a14f7549bde40eb6bf73254, type: 2}
-  - {fileID: 11400000, guid: b472e0828df561647949db3eb12ba048, type: 2}
+  - {fileID: 11400000, guid: 5f11cd566775781498f92cc0eae8ac6a, type: 2}
+  - {fileID: 11400000, guid: 5f11cd566775781498f92cc0eae8ac6a, type: 2}

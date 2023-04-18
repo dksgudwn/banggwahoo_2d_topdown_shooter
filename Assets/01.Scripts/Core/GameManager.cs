@@ -63,10 +63,17 @@ public class GameManager : MonoBehaviour
                 currentTime = 0;
                 int idx = Random.Range(0, _spawnPointList.Count);
 
-                EnemyBrain enemy = PoolManager.Instance.Pop("EnemyGrowler") as EnemyBrain;
+                int cnt = Random.Range(2, 5);
+                for (int i = 0; i < cnt; i++)
+                {
+                    EnemyBrain enemy = PoolManager.Instance.Pop("EnemyGrowler") as EnemyBrain;
+                    Vector2 positionOffset = Random.insideUnitCircle * 2;
 
-                enemy.transform.position = _spawnPointList[idx].position;
-                enemy.ShowEnemy();
+                    enemy.transform.position = _spawnPointList[idx].position + (Vector3)positionOffset;
+                    enemy.ShowEnemy();
+                    float showTime = Random.Range(0.1f, 0.3f);
+                    yield return new WaitForSeconds(showTime);
+                }
             }
             yield return null;
         }

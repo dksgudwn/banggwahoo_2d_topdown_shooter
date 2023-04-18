@@ -50,7 +50,7 @@ public class EffectScript : PoolableMono
             _light.intensity = Mathf.Lerp(_initIntensity, 0, currentTime / _lightOffTime);
             yield return null;
         }
-        PoolManager.Instance.Push(this);    
+        PoolManager.Instance.Push(this);
     }
 
     public override void Reset()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using static UnityEditor.Progress;
@@ -50,12 +51,16 @@ public class ItemCollector : MonoBehaviour
 
 
     public UnityEvent<int> OnAmmoAdded = null;
+    public UnityEvent<int> OnHealthAdded = null;
     private void ProcessItem(ItemType type, int value)
     {
         switch (type)
         {
             case ItemType.Ammo:
                 OnAmmoAdded?.Invoke(value);
+                break;
+            case ItemType.Health:
+                OnHealthAdded?.Invoke(value);
                 break;
         }
     }

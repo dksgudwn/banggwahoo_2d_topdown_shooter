@@ -57,9 +57,9 @@ public class EnemyRenderer : AgentRenderer
         StopAllCoroutines(); //모든 코루틴을 중지시켜줘야 해.
         _animator.SetAnimationSpeed(1);
         _spriteRenderer.material.SetFloat(_showRateHash, -1f);
-        if (_effectScript != null)
-        {
-            _effectScript.StopEffect();
-        }
+        //if (_effectScript != null)
+        //{
+        //    _effectScript.StopEffect();
+        //}
     }
 }

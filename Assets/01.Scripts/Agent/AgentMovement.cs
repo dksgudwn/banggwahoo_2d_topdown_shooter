@@ -23,6 +23,7 @@ public class AgentMovement : MonoBehaviour
 
     public void StopImmediately()
     {
+        _movementDirection = Vector2.zero;
         _rigid.velocity = Vector2.zero;
         _currentVelocity = 0;
     }

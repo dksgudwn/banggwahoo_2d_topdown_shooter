@@ -33,7 +33,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         Debug.Log(damage);
         _currentHealth -= damage;
-        
+
         _AIActionData.hitPoint = hitPoint;
         _AIActionData.hitNormal = normal;
 
@@ -49,5 +49,9 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         _isDead = true;
         OnDie?.Invoke();
+    }
+    public void Reset()
+    {
+        _isDead = false;
     }
 }

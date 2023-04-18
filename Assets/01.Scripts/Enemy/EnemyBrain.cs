@@ -10,6 +10,8 @@ public class EnemyBrain : PoolableMono
     public UnityEvent<Vector2> OnMovementKeyPress;
     public UnityEvent<Vector2> OnPointerPositionChanged; //마우스방향전환을 
 
+    public UnityEvent OnResetPool = null;
+    public UnityEvent OnAttackButtonPress = null;
     //공격 은 어짜피 오늘 못하니까 일단 쌩까고
 
 
@@ -70,5 +72,22 @@ public class EnemyBrain : PoolableMono
     public override void Reset()
     {
         _isActive = false;
+        OnResetPool?.Invoke();
+
+    }
+
+    public void Attack()
+    {
+        OnAttackButtonPress?.Invoke();
+    }
+
+    public void Dead()
+    {
+        _isActive = false;
+
+    }
+    public void GotoPool()
+    {
+        PoolManager.Instance.Push(this);
     }
 }
