@@ -53,7 +53,7 @@ public class EffectScript : PoolableMono
         PoolManager.Instance.Push(this);
     }
 
-    public override void Reset()
+    public override void Init()
     {
         _light.intensity = _initIntensity;
     }

@@ -93,7 +93,7 @@ public class RegularBullet : PoolableMono
         transform.SetPositionAndRotation(pos, rot);
     }
 
-    public override void Reset()
+    public override void Init()
     {
         isDead = false;
         _timeToLive = 0;

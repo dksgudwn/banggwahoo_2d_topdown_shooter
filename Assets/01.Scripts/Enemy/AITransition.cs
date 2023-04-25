@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class AITransition : MonoBehaviour
 {
-    public List<AIDecision> decisions;
+    protected List<AIDecision> decisions;
 
     public AIState TransitionState; //전이할 상태
 
     private void Awake()
     {
+        decisions = new List<AIDecision>();
         GetComponents<AIDecision>(decisions); //모든 디시전을 가져와서 리스트를 만든다.
     }
 

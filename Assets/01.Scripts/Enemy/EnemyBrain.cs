@@ -69,7 +69,7 @@ public class EnemyBrain : PoolableMono
         OnPointerPositionChanged?.Invoke(targetPosition);
     }
 
-    public override void Reset()
+    public override void Init()
     {
         _isActive = false;
         OnResetPool?.Invoke();

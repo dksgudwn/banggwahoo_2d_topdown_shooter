@@ -16,7 +16,7 @@ public class ImpactScript : PoolableMono
         PoolManager.Instance.Push(this);
     }
 
-    public override void Reset()
+    public override void Init()
     {
         transform.localScale = Vector3.one;
         transform.localRotation = Quaternion.identity;

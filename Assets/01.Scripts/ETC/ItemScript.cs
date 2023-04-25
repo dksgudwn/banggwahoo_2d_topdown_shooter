@@ -36,7 +36,7 @@ public class ItemScript : PoolableMono
         PoolManager.Instance.Push(this);
     }
 
-    public override void Reset()
+    public override void Init()
     {
         _spriteRenderer.enabled = true;
         _collider.enabled = true;
