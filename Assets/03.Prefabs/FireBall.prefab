@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 5388241609641775897}
   - component: {fileID: -249875426256481577}
   - component: {fileID: 1770668726699329799}
+  - component: {fileID: 4664393793798890635}
   m_Layer: 0
   m_Name: FireBall
   m_TagString: Untagged
@@ -232,6 +233,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightMaxIntensity: 2.5
+  _whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 4096
+  _bulletData: {fileID: 11400000, guid: a950193085c60544b931270a48539a94, type: 2}
 --- !u!50 &1770668726699329799
 Rigidbody2D:
   serializedVersion: 4
@@ -253,3 +258,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &4664393793798890635
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388241609641775898}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.41

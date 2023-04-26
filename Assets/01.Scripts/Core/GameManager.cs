@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,6 +15,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Transform _spawnPointParent;
+
+    [SerializeField]
+    private SpawnListSO _spawnList;
+
+    private float[] _spawnWeights;
 
     [SerializeField]
     private Transform _playerTrm; //이건 나중에 찾아오는 형식으로 변경해야 함.
@@ -35,6 +41,9 @@ public class GameManager : MonoBehaviour
         _spawnPointList = new List<Transform>();
         _spawnPointParent.GetComponentsInChildren<Transform>(_spawnPointList);
         _spawnPointList.RemoveAt(0);
+
+
+        _spawnWeights = _spawnList.SpawnPairs.Select(s => s.spawnPercent).ToArray();
     }
 
 
@@ -63,10 +72,12 @@ public class GameManager : MonoBehaviour
                 currentTime = 0;
                 int idx = Random.Range(0, _spawnPointList.Count);
 
-                int cnt = Random.Range(2, 5);
+                int cnt = Random.Range(3, 7);
                 for (int i = 0; i < cnt; i++)
                 {
-                    EnemyBrain enemy = PoolManager.Instance.Pop("EnemyGrowler") as EnemyBrain;
+                    int sIndex = GetRandomSpawnIndex();
+
+                    EnemyBrain enemy = PoolManager.Instance.Pop(_spawnList.SpawnPairs[sIndex].prefab.name) as EnemyBrain;
                     Vector2 positionOffset = Random.insideUnitCircle * 2;
 
                     enemy.transform.position = _spawnPointList[idx].position + (Vector3)positionOffset;
@@ -77,5 +88,28 @@ public class GameManager : MonoBehaviour
             }
             yield return null;
         }
+    }
+    private int GetRandomSpawnIndex()
+    {
+        float sum = 0f;
+        for (int i = 0; i < _spawnWeights.Length; i++)
+        {
+            sum += _spawnWeights[i];
+        }
+        float randomValue = Random.Range(0f, sum);
+        float tempSum = 0;
+
+        for (int i = 0; i < _spawnWeights.Length; i++)
+        {
+            if (randomValue >= tempSum && randomValue < tempSum + _spawnWeights[i])
+            {
+                return i;
+            }
+            else
+            {
+                tempSum += _spawnWeights[i];
+            }
+        }
+        return 0;
     }
 }
