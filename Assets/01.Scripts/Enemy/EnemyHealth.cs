@@ -21,16 +21,18 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private AIActionData _AIActionData;
 
+    private HealthBarUI _healthBarUI;
     private void Awake()
     {
         _currentHealth = _maxHealth;
         _AIActionData = transform.Find("AI").GetComponent<AIActionData>();
+        _healthBarUI = transform.Find("HealthBar").GetComponent<HealthBarUI>();
     }
 
     public void GetHit(int damage, GameObject damageDealer, Vector3 hitPoint, Vector3 normal)
     {
         if (_isDead) return;
-
+        _healthBarUI.gameObject.SetActive(true);
         Debug.Log(damage);
         _currentHealth -= damage;
 
@@ -38,6 +40,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         _AIActionData.hitNormal = normal;
 
         OnGetHit?.Invoke();
+
+        _healthBarUI.SetHealth(_currentHealth);
 
         if (_currentHealth <= 0)
         {
@@ -52,6 +56,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     }
     public void Reset()
     {
+        _currentHealth = _maxHealth;
+        _healthBarUI.gameObject.SetActive(false);
         _isDead = false;
     }
 }
